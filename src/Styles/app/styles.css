@@ -1,0 +1,42 @@
+.box {
+  background-color: var(--my-ccs-var);
+  height: 100px;
+  margin: 0;
+  width: 100px;
+  color: black;
+  font-size: 15px;
+  text-align: center;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+.forms {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+}
+.forms .form {
+  width: 50vw;
+  height: 100px;
+  margin-top: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.forms .form button {
+  width: 34vw;
+}
+
+input {
+  padding: 15px;
+  margin: 10px;
+}/*# sourceMappingURL=styles.css.map */
