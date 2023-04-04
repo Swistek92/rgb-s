@@ -1,42 +1,72 @@
-.box {
+.boxs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.boxs .box {
+  margin: 10px;
+  padding: 10px;
   background-color: var(--my-ccs-var);
   height: 100px;
-  margin: 0;
   width: 100px;
   color: black;
   font-size: 15px;
   text-align: center;
+  border: 1px dotted #f3b2b2;
 }
 
-.container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-}
-
-.forms {
-  width: 100vw;
+.Addingform {
+  width: 40vw;
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
 }
-.forms .form {
-  width: 50vw;
-  height: 100px;
+.Addingform .form {
+  width: 100%;
+  padding: 20px;
+  border-radius: 25px;
+  background-color: #565555;
   margin-top: 30px;
   text-align: center;
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
-.forms .form button {
-  width: 34vw;
-}
-
-input {
+.Addingform .form input {
   padding: 15px;
   margin: 10px;
+  border-radius: 20px;
+  width: 100%;
+}
+.Addingform .form button {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  background-color: rgb(151, 164, 164);
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.Addingform .form .error {
+  display: none;
+  color: red;
+  font-size: 15px;
+}
+.Addingform .form input:invalid ~ .error {
+  display: block;
+}
+
+.Addingform:hover {
+  transform: scale(1.01);
+  transition: all 1s ease;
+}
+.Addingform:hover .form {
+  transition: all 1s ease;
+  border: 1px dotted red;
+}
+.Addingform:hover .form span {
+  transition: all 1s ease;
+  font-size: 20px;
 }/*# sourceMappingURL=styles.css.map */
