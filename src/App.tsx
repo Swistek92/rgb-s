@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Styles/app/styles.css";
-import { useLocalStorage, HexConverter } from "./Helpers";
+import {
+  useLocalStorage,
+  HexConverter,
+  NewColorValidator,
+  filterColors,
+} from "./Helpers";
 import { AddColorForm, FilterForm } from "./Components/Forms";
 import Boxs from "./Components/Boxs/Boxs";
 
@@ -60,45 +65,41 @@ const App: React.FC = () => {
   const [colors, setColors] = useLocalStorage("colors", initalStatel);
   const [filteredColors, setFilteredColors] = useState<ListOfColors>(colors);
   const [color, setColor] = useState("#");
-  const [blur, setBlur] = useState(false);
   const [filter, setFilter] = useState("none");
+  const [error, setError] = useState("");
   const RegExpIsHex = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
+  const usedIds = [0, 1, 2];
 
   useEffect(() => {
-    filterColors();
+    filterColors({ filter, setFilteredColors, colors });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, colors]);
-
-  const filterColors = () => {
-    if (filter === filterPossibilites.none) {
-      setFilteredColors(colors);
-    } else if (filter === filterPossibilites.red) {
-      const filtered = colors.filter((color) => color.rgb.r > 127);
-      setFilteredColors(filtered);
-    } else if (filter === filterPossibilites.green) {
-      const filtered = colors.filter((color) => color.rgb.g > 127);
-      setFilteredColors(filtered);
-    } else if (filter === filterPossibilites.blue) {
-      const filtered = colors.filter((color) => color.rgb.b > 127);
-      setFilteredColors(filtered);
-      console.log(filtered);
-    } else if (filter === filterPossibilites.saturation) {
-      const filtered = colors.filter((color) => color.hsl > 0.5);
-      setFilteredColors(filtered);
-    }
-  };
 
   const addColorSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const converter = new HexConverter(color);
     const rgb = converter.rgb();
     const hsl = converter.hsl();
-    setColors([
-      ...colors,
-      { id: colors.length, color, rgb, hsl, removeable: true },
-    ]);
-    setBlur(false);
-    setColor("#");
+
+    const getRandomId = (max: number) => {
+      return Math.random() * max;
+    };
+
+    const checkId = (id: number): number => {
+      return usedIds.includes(id) ? checkId(getRandomId(999999)) : id;
+    };
+
+    const id = getRandomId(999999);
+    let checkedNumber = checkId(id);
+    usedIds.push(checkedNumber);
+
+    const newColor = { id: checkedNumber, color, rgb, hsl, removeable: true };
+
+    const validate = NewColorValidator({ color, type: "submit", setError });
+    if (validate) {
+      setColors([...colors, newColor]);
+      setColor("#");
+    }
   };
 
   const RemoveBoxHandler = (id: number) => {
@@ -107,17 +108,13 @@ const App: React.FC = () => {
   };
 
   const ChangeInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const regexp = new RegExp(/[0-9a-f]+/i);
-    if (e.target.value.length === 1 && e.target.value !== "#") {
-      return console.log("start with #");
-    } else if (
-      e.target.value.length > 1 &&
-      !regexp.test(e.target.value.slice(-1))
-    ) {
-      return console.log("not allowed char");
-    } else {
-      setColor(e.target.value);
-    }
+    const newColor = e.target.value;
+    const validate = NewColorValidator({
+      color: newColor,
+      type: "change",
+      setError,
+    });
+    if (validate) setColor(newColor);
   };
 
   return (
@@ -127,9 +124,8 @@ const App: React.FC = () => {
           addColorSubmit={addColorSubmit}
           color={color}
           ChangeInputHandler={ChangeInputHandler}
-          setBlur={setBlur}
           RegExpIsHex={RegExpIsHex}
-          blur={blur}
+          error={error}
         />
         <FilterForm filter={filter} setFilter={setFilter} />
       </div>

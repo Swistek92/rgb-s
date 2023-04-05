@@ -1,24 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
-type AddColorForm = {
+type AddColorFormPropsType = {
   addColorSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   color: string;
   ChangeInputHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   RegExpIsHex: string;
-  blur: boolean;
-  setBlur: React.Dispatch<React.SetStateAction<boolean>>;
+  error: string;
 };
 
 export const AddColorForm = ({
   addColorSubmit,
   color,
   ChangeInputHandler,
-  setBlur,
   RegExpIsHex,
-  blur,
-}: AddColorForm) => {
+  error,
+}: AddColorFormPropsType) => {
   const IsCorrectHex = new RegExp(RegExpIsHex).test(color);
-
   return (
     <div className='Form'>
       <form onSubmit={addColorSubmit}>
@@ -30,14 +27,13 @@ export const AddColorForm = ({
           placeholder='type your color, remember starts with #'
           onChange={(e) => ChangeInputHandler(e)}
           pattern={RegExpIsHex}
-          onBlur={() => setBlur(true)}
           required
-          maxLength={7}
         />
         <button disabled={!IsCorrectHex} type='submit'>
           Submit
         </button>
-        {blur && <span className='error'> error</span>}
+        {error && <p className='error'>{error}</p>}
+
         {IsCorrectHex && (
           <div>
             <h3 className='HeadingPreview'>your future color:</h3>

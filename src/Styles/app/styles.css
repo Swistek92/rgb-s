@@ -94,12 +94,8 @@ body {
   cursor: pointer;
 }
 .Forms .Form .error {
-  display: none;
   color: red;
   font-size: 25px;
-}
-.Forms .Form input:invalid ~ .error {
-  display: block;
 }
 .Forms .Form .preview {
   width: 100%;
