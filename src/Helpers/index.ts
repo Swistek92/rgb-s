@@ -1,3 +1,3 @@
-export * from "./HexToRgb";
-export * from "./RgbToHsl";
+export * from "./HexConverter";
+
 export * from "./UseLocalStorage";
