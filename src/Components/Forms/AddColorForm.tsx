@@ -14,7 +14,7 @@ export const AddColorForm = ({
   ChangeInputHandler,
   RegExpIsHex,
   error,
-}: AddColorFormPropsType) => {
+}: AddColorFormPropsType): JSX.Element => {
   const IsCorrectHex = new RegExp(RegExpIsHex).test(color);
   return (
     <div className='Form'>

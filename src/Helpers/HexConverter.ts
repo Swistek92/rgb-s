@@ -1,7 +1,8 @@
+import { rgb } from "../App";
 export class HexConverter {
   constructor(public hex: string) {}
 
-  rgb() {
+  rgb(): rgb {
     if (this.hex.length === 4) {
       const r = [this.hex[1], this.hex[1]].join();
       const g = [this.hex[2], this.hex[2]].join();
@@ -21,7 +22,7 @@ export class HexConverter {
     }
   }
 
-  hsl() {
+  hsl(): number {
     const rgb = this.rgb();
     let r = rgb.r / 255;
     let g = rgb.g / 255;

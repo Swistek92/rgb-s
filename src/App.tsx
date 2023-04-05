@@ -9,7 +9,7 @@ import {
 import { AddColorForm, FilterForm } from "./Components/Forms";
 import Boxs from "./Components/Boxs/Boxs";
 
-type rgb = {
+export type rgb = {
   r: number;
   g: number;
   b: number;
@@ -81,7 +81,7 @@ const App: React.FC = () => {
     const rgb = converter.rgb();
     const hsl = converter.hsl();
 
-    const getRandomId = (max: number) => {
+    const getRandomId = (max: number): number => {
       return Math.random() * max;
     };
 

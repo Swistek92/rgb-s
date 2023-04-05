@@ -10,7 +10,7 @@ export const filterColors = ({
   filter,
   setFilteredColors,
   colors,
-}: FilterColors) => {
+}: FilterColors): void => {
   if (filter === filterPossibilites.none) {
     setFilteredColors(colors);
   } else if (filter === filterPossibilites.red) {

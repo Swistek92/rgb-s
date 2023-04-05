@@ -3,7 +3,11 @@ type PropsType = {
   type: "change" | "submit";
   setError: React.Dispatch<React.SetStateAction<string>>;
 };
-export const NewColorValidator = ({ color, type, setError }: PropsType) => {
+export const NewColorValidator = ({
+  color,
+  type,
+  setError,
+}: PropsType): void | true => {
   const regexp = new RegExp(/[0-9a-f]+/i);
   const ValidLengthForSubmit = [4, 7];
   if (
@@ -12,7 +16,7 @@ export const NewColorValidator = ({ color, type, setError }: PropsType) => {
   ) {
     return setError("Color must start with #");
   } else if (color.length > 1 && !regexp.test(color.slice(-1))) {
-    return setError("hex colors contains numbers form 0-9 and letter a to f");
+    return setError("hex colors contains numbers and letter from a to f");
   } else if (
     type === "submit" &&
     !ValidLengthForSubmit.includes(color.length)

@@ -6,7 +6,7 @@ type BoxsType = {
   RemoveBoxHandler: (id: number) => void;
 };
 
-const Boxs = ({ filteredColors, RemoveBoxHandler }: BoxsType) => {
+const Boxs = ({ filteredColors, RemoveBoxHandler }: BoxsType): JSX.Element => {
   return (
     <div className='boxs'>
       {filteredColors.map((color: Color) => (

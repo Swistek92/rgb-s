@@ -1,12 +1,15 @@
 import React from "react";
 import { filterPossibilites } from "../../App";
 
-type FilterForm = {
+type FilterFormPropsType = {
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const FilterForm = ({ filter, setFilter }: FilterForm) => {
+export const FilterForm = ({
+  filter,
+  setFilter,
+}: FilterFormPropsType): JSX.Element => {
   return (
     <div className='Form'>
       <form>
