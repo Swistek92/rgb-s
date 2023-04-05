@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Swistek92/rgb-s/static/css/main.76efdafb.css",
+    "main.js": "/Swistek92/rgb-s/static/js/main.ad6e1a58.js",
+    "index.html": "/Swistek92/rgb-s/index.html",
+    "main.76efdafb.css.map": "/Swistek92/rgb-s/static/css/main.76efdafb.css.map",
+    "main.ad6e1a58.js.map": "/Swistek92/rgb-s/static/js/main.ad6e1a58.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.76efdafb.css",
+    "static/js/main.ad6e1a58.js"
+  ]
+}
