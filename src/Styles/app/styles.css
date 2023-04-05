@@ -2,10 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: all 2s ease;
 }
 
 body {
-  background-color: #333;
+  background-color: #616060;
 }
 
 .boxs {
@@ -30,6 +31,15 @@ body {
   top: -8px;
   right: -40px;
 }
+.boxs .box button:hover {
+  transform: scale(1.5);
+  transform: translateY(-3px);
+  cursor: pointer;
+}
+.boxs .box:hover {
+  transform: scale(1.1);
+  border: 4px dotted #f3b2b2;
+}
 
 .Forms {
   width: 100vw;
@@ -52,18 +62,20 @@ body {
   margin: 10px;
   border-radius: 20px;
   width: 100%;
+  cursor: pointer;
 }
 .Forms .Form input {
   padding: 15px;
   margin: 10px;
   border-radius: 20px;
   width: 100%;
+  cursor: text;
 }
 .Forms .Form button {
   width: 100%;
   height: 50px;
   padding: 10px;
-  background-color: rgb(29, 28, 79);
+  background-color: rgb(53, 51, 146);
   border-radius: 10px;
   color: #fff;
   font-weight: bold;
@@ -73,6 +85,9 @@ body {
   position: relative;
   top: 0;
   transition: all ease 0.5s;
+}
+.Forms .Form button:disabled {
+  background-color: rgb(7, 7, 29);
 }
 .Forms .Form button:hover {
   transform: translateY(-2px);
@@ -85,6 +100,24 @@ body {
 }
 .Forms .Form input:invalid ~ .error {
   display: block;
+}
+.Forms .Form .preview {
+  width: 100%;
+  height: 20px;
+  background-color: var(--preview);
+  transition: all 1s ease;
+}
+.Forms .Form .preview:hover {
+  height: 100px;
+}
+.Forms .Form .preview:active {
+  height: 200px;
+  transform: rotate(180deg);
+}
+.Forms .Form .HeadingPreview {
+  color: #a3a3a3;
+  text-align: center;
+  margin-bottom: 5px;
 }
 
 @media screen and (max-width: 1200px) {

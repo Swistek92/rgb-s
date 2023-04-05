@@ -17,6 +17,8 @@ export const AddColorForm = ({
   RegExpIsHex,
   blur,
 }: AddColorForm) => {
+  const IsCorrectHex = new RegExp(RegExpIsHex).test(color);
+
   return (
     <div className='Form'>
       <form onSubmit={addColorSubmit}>
@@ -32,12 +34,20 @@ export const AddColorForm = ({
           required
           maxLength={7}
         />
-        <button disabled={!new RegExp(RegExpIsHex).test(color)} type='submit'>
+        <button disabled={!IsCorrectHex} type='submit'>
           Submit
         </button>
         {blur && <span className='error'> error</span>}
+        {IsCorrectHex && (
+          <div>
+            <h3 className='HeadingPreview'>your future color:</h3>
+            <div
+              className='preview'
+              style={{ "--preview": color } as React.CSSProperties}
+            ></div>
+          </div>
+        )}
       </form>
-      <h3>{color}</h3>
     </div>
   );
 };
