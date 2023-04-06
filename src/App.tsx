@@ -68,7 +68,7 @@ const App: React.FC = () => {
   const [color, setColor] = useState("#");
   const [filter, setFilter] = useState("none");
   const [error, setError] = useState("");
-  const usedIds = colors.map((e) => e.id);
+  const usedIds: Number[] = colors.map((e: Color) => e.id);
   const IdsController = new uuid(usedIds);
 
   useEffect(() => {
