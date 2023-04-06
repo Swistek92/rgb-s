@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 type AddColorFormPropsType = {
   addColorSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   color: string;
   ChangeInputHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  RegExpIsHex: string;
   error: string;
 };
 
@@ -12,9 +11,10 @@ export const AddColorForm = ({
   addColorSubmit,
   color,
   ChangeInputHandler,
-  RegExpIsHex,
   error,
 }: AddColorFormPropsType): JSX.Element => {
+  const RegExpIsHex = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
+
   const IsCorrectHex = new RegExp(RegExpIsHex).test(color);
   return (
     <div className='Form'>

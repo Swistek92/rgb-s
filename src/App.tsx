@@ -5,6 +5,7 @@ import {
   HexConverter,
   NewColorValidator,
   filterColors,
+  uuid,
 } from "./Helpers";
 import { AddColorForm, FilterForm } from "./Components/Forms";
 import Boxs from "./Components/Boxs/Boxs";
@@ -67,34 +68,21 @@ const App: React.FC = () => {
   const [color, setColor] = useState("#");
   const [filter, setFilter] = useState("none");
   const [error, setError] = useState("");
-  const RegExpIsHex = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
-  const usedIds = [0, 1, 2];
+  const usedIds = colors.map((e) => e.id);
+  const IdsController = new uuid(usedIds);
 
   useEffect(() => {
     filterColors({ filter, setFilteredColors, colors });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, colors]);
 
-  const addColorSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const addColorSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const converter = new HexConverter(color);
     const rgb = converter.rgb();
     const hsl = converter.hsl();
-
-    const getRandomId = (max: number): number => {
-      return Math.random() * max;
-    };
-
-    const checkId = (id: number): number => {
-      return usedIds.includes(id) ? checkId(getRandomId(999999)) : id;
-    };
-
-    const id = getRandomId(999999);
-    let checkedNumber = checkId(id);
-    usedIds.push(checkedNumber);
-
-    const newColor = { id: checkedNumber, color, rgb, hsl, removeable: true };
-
+    const id = IdsController.generateId();
+    const newColor = { id, color, rgb, hsl, removeable: true };
     const validate = NewColorValidator({ color, type: "submit", setError });
     if (validate) {
       setColors([...colors, newColor]);
@@ -102,12 +90,13 @@ const App: React.FC = () => {
     }
   };
 
-  const RemoveBoxHandler = (id: number) => {
+  const RemoveBoxHandler = (id: number): void => {
     const filter = colors.filter((color) => color.id !== id);
     setColors(filter);
+    IdsController.removeId(id);
   };
 
-  const ChangeInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const ChangeInputHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const newColor = e.target.value;
     const validate = NewColorValidator({
       color: newColor,
@@ -124,7 +113,6 @@ const App: React.FC = () => {
           addColorSubmit={addColorSubmit}
           color={color}
           ChangeInputHandler={ChangeInputHandler}
-          RegExpIsHex={RegExpIsHex}
           error={error}
         />
         <FilterForm filter={filter} setFilter={setFilter} />
